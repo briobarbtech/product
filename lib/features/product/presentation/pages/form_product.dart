@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:proy_productos_v1/features/product/data/model/product_model.dart';
 import 'package:proy_productos_v1/provider_dependency.dart';
 import 'package:go_router/go_router.dart';
 
-class FormularioProducto extends StatelessWidget {
+class FormularioProducto extends ConsumerWidget {
   const FormularioProducto({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     GlobalKey<FormState> keyForm = GlobalKey();
     final name = TextEditingController();
     final price = TextEditingController();
@@ -83,8 +84,17 @@ class FormularioProducto extends StatelessWidget {
                                   price: price.text,
                                   quantity: quantity.text,
                                 );
-                                productUseCasePost.postProduct(producto);
-                                context.go('/');
+                                final response =
+                                    ref.read(postProductData(producto));
+                                response.when(
+                                    data: (data) => {
+                                          if (data == true) {context.go('/')}
+                                          /* if (data. == 'ok')
+                                            {context.go('/')} */
+                                        },
+                                    error: (e, _) => {context.go('/homepage')},
+                                    loading: () =>
+                                        const CircularProgressIndicator());
                               }
                             },
                             style: ButtonStyle(

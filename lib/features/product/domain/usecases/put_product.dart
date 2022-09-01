@@ -7,7 +7,7 @@ class PutProducts implements IPutProduct {
 
   PutProducts(this.productRepository);
   @override
-  putProduct(ProductModel product) {
+  Future<Map<String, dynamic>> putProduct(ProductModel product) {
     return productRepository.putProduct(product);
   }
 }

@@ -7,7 +7,7 @@ class PostProducts implements IPostProduct {
 
   PostProducts(this.productRepository);
   @override
-  postProduct(ProductModel product) {
+  Future<Map<String, dynamic>> postProduct(ProductModel product) {
     return productRepository.postProduct(product);
   }
 }

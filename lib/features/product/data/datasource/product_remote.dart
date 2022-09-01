@@ -4,11 +4,13 @@ import 'package:proy_productos_v1/features/product/data/model/product_model.dart
 
 class ProductRemoteDatasource implements IProductRemoteDatasource {
   final String _url = 'http://localhost:5000/product';
+  final String _url2 = "https://www.mockachino.com/095ab93e-32ff-48/product";
   @override
   Future<List<ProductModel>> requestProducts() async {
     Response response = await Dio().get(_url);
     if (response.statusCode == 200) {
       final List result = response.data['products'];
+      print(result);
       return result.map((e) => ProductModel.fromJson(e)).toList();
     } else {
       throw Exception(response);
@@ -16,7 +18,7 @@ class ProductRemoteDatasource implements IProductRemoteDatasource {
   }
 
   @override
-  crearProducto(ProductModel producto) async {
+  Future<Map<String, dynamic>> crearProducto(ProductModel producto) async {
     try {
       await Dio().post(_url, data: producto.toJson());
 

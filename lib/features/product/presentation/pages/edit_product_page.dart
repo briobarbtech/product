@@ -100,7 +100,7 @@ class EditProductPage extends StatelessWidget {
                               price: price.text,
                               quantity: quantity.text,
                             );
-                            productUseCasePut.putProduct(producto);
+                            putProductData(producto);
                           },
                         ),
                         ElevatedButton(
