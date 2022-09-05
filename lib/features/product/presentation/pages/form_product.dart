@@ -84,17 +84,6 @@ class FormularioProducto extends ConsumerWidget {
                                   price: price.text,
                                   quantity: quantity.text,
                                 );
-                                final response =
-                                    ref.read(postProductData(producto));
-                                response.when(
-                                    data: (data) => {
-                                          if (data == true) {context.go('/')}
-                                          /* if (data. == 'ok')
-                                            {context.go('/')} */
-                                        },
-                                    error: (e, _) => {context.go('/homepage')},
-                                    loading: () =>
-                                        const CircularProgressIndicator());
                               }
                             },
                             style: ButtonStyle(
