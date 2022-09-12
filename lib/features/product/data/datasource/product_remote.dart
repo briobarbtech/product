@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:proy_productos_v1/features/product/data/datasource/iproduct_remote.dart';
 import 'package:proy_productos_v1/features/product/data/model/product_model.dart';
+import 'package:proy_productos_v1/features/product/domain/entities/product_state.dart';
 
 class ProductRemoteDatasource implements IProductRemoteDatasource {
   final String _url = 'http://localhost:5000/product';
@@ -18,14 +19,14 @@ class ProductRemoteDatasource implements IProductRemoteDatasource {
   }
 
   @override
-  Future<Map<String, dynamic>> crearProducto(ProductModel producto) async {
+  Future<ProductState> crearProducto(ProductModel producto) async {
     try {
       await Dio().post(_url, data: producto.toJson());
 
-      return {'ok': true};
+      return const ProductState(isLoading: false);
     } on DioError catch (e) {
       //return {'ok': false, 'mensaje': e.response.data['error']};
-      return {'ok': false, 'mensaje': e.response};
+      return const ProductState(isLoading: true);
     }
   }
 

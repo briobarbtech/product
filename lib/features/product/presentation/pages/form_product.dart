@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:proy_productos_v1/features/product/data/model/product_model.dart';
-import 'package:proy_productos_v1/provider_dependency.dart';
 import 'package:go_router/go_router.dart';
+import 'package:proy_productos_v1/features/product/presentation/widgets/text_field_form.dart';
+import 'package:proy_productos_v1/provider_dependency.dart';
+import 'package:proy_productos_v1/state_notifier_product.dart';
 
 class FormularioProducto extends ConsumerWidget {
   const FormularioProducto({Key? key}) : super(key: key);
@@ -30,40 +32,19 @@ class FormularioProducto extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: "Nombre"),
+                      TextFieldForm(
                         controller: name,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Por favor, ingresar el nombre del producto a agregar';
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: "Precio"),
-                        controller: price,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Por favor, ingresar un precio';
-                          } else {
-                            return null;
-                          }
-                        },
+                        label: "Nombre",
                       ),
                       const SizedBox(height: 20.0),
-                      TextFormField(
-                        decoration:
-                            const InputDecoration(labelText: "Cantidad"),
+                      TextFieldForm(
+                        controller: price,
+                        label: "Precio",
+                      ),
+                      const SizedBox(height: 20.0),
+                      TextFieldForm(
                         controller: quantity,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Por favor, ingresar una cantidad válida';
-                          } else {
-                            return null;
-                          }
-                        },
+                        label: "Cantidad",
                       ),
                       const SizedBox(height: 20.0),
                     ],
@@ -84,6 +65,11 @@ class FormularioProducto extends ConsumerWidget {
                                   price: price.text,
                                   quantity: quantity.text,
                                 );
+                                final response =
+                                    ref.read(postProductData(producto));
+                                ref
+                                    .watch(postProvider.notifier)
+                                    .postSuccesful(response);
                               }
                             },
                             style: ButtonStyle(

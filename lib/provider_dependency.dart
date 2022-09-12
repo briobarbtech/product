@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:proy_productos_v1/features/product/data/model/product_model.dart';
 import 'package:proy_productos_v1/features/product/data/datasource/product_remote.dart';
 import 'package:proy_productos_v1/features/product/data/repository/product_repository.dart';
+import 'package:proy_productos_v1/features/product/domain/entities/product_state.dart';
 import 'package:proy_productos_v1/features/product/domain/entities/product.dart';
 import 'package:proy_productos_v1/features/product/domain/repository/iproduct_repository.dart';
 import 'package:proy_productos_v1/features/product/domain/usecases/get_products.dart';
@@ -10,6 +11,7 @@ import 'package:proy_productos_v1/features/product/domain/usecases/iput_product.
 import 'package:proy_productos_v1/features/product/domain/usecases/post_product.dart';
 import 'package:proy_productos_v1/features/product/domain/usecases/ipost_product.dart';
 import 'package:proy_productos_v1/features/product/domain/usecases/put_product.dart';
+import 'package:proy_productos_v1/state_notifier_product.dart';
 
 //Data
 final productDataSource = Provider.autoDispose<ProductRemoteDatasource>(
@@ -40,8 +42,7 @@ final productUseCasePost = Provider<IPostProduct>(
     (ref) => PostProducts(ref.watch(productRepositoryProviderPost)));
 //Presentation
 final postProductData =
-    FutureProvider.family<Map<String, dynamic>, ProductModel>(
-        (ref, product) async {
+    FutureProvider.family<ProductState, ProductModel>((ref, product) async {
   return ref.watch(productUseCasePost).postProduct(product);
 });
 

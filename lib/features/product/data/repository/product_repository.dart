@@ -1,6 +1,7 @@
 import 'package:proy_productos_v1/features/product/data/datasource/iproduct_remote.dart';
 import 'package:proy_productos_v1/features/product/data/model/product_model.dart';
 import 'package:proy_productos_v1/features/product/domain/entities/product.dart';
+import 'package:proy_productos_v1/features/product/domain/entities/product_state.dart';
 import 'package:proy_productos_v1/features/product/domain/repository/iproduct_repository.dart';
 
 class ProductRepository implements IProductRepository {
@@ -15,7 +16,7 @@ class ProductRepository implements IProductRepository {
   }
 
   @override
-  postProduct(ProductModel producto) {
+  Future<ProductState> postProduct(ProductModel producto) {
     return remoteDatasource.crearProducto(producto);
   }
 
