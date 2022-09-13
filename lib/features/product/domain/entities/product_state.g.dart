@@ -8,10 +8,12 @@ part of 'product_state.dart';
 
 _$_ProductState _$$_ProductStateFromJson(Map<String, dynamic> json) =>
     _$_ProductState(
-      isLoading: json['isLoading'] as bool? ?? false,
+      products: json['products'] as List<dynamic>? ?? const [],
+      isLoading: json['isLoading'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$_ProductStateToJson(_$_ProductState instance) =>
     <String, dynamic>{
+      'products': instance.products,
       'isLoading': instance.isLoading,
     };

@@ -22,8 +22,10 @@ ProductState _$ProductStateFromJson(Map<String, dynamic> json) {
 class _$ProductStateTearOff {
   const _$ProductStateTearOff();
 
-  _ProductState call({bool isLoading = false}) {
+  _ProductState call(
+      {List<dynamic> products = const [], bool isLoading = true}) {
     return _ProductState(
+      products: products,
       isLoading: isLoading,
     );
   }
@@ -38,6 +40,7 @@ const $ProductState = _$ProductStateTearOff();
 
 /// @nodoc
 mixin _$ProductState {
+  List<dynamic> get products => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +54,7 @@ abstract class $ProductStateCopyWith<$Res> {
   factory $ProductStateCopyWith(
           ProductState value, $Res Function(ProductState) then) =
       _$ProductStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({List<dynamic> products, bool isLoading});
 }
 
 /// @nodoc
@@ -64,9 +67,14 @@ class _$ProductStateCopyWithImpl<$Res> implements $ProductStateCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? products = freezed,
     Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
+      products: products == freezed
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -82,7 +90,7 @@ abstract class _$ProductStateCopyWith<$Res>
           _ProductState value, $Res Function(_ProductState) then) =
       __$ProductStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({List<dynamic> products, bool isLoading});
 }
 
 /// @nodoc
@@ -97,9 +105,14 @@ class __$ProductStateCopyWithImpl<$Res> extends _$ProductStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? products = freezed,
     Object? isLoading = freezed,
   }) {
     return _then(_ProductState(
+      products: products == freezed
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -111,18 +124,21 @@ class __$ProductStateCopyWithImpl<$Res> extends _$ProductStateCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ProductState implements _ProductState {
-  const _$_ProductState({this.isLoading = false});
+  const _$_ProductState({this.products = const [], this.isLoading = true});
 
   factory _$_ProductState.fromJson(Map<String, dynamic> json) =>
       _$$_ProductStateFromJson(json);
 
   @JsonKey()
   @override
+  final List<dynamic> products;
+  @JsonKey()
+  @override
   final bool isLoading;
 
   @override
   String toString() {
-    return 'ProductState(isLoading: $isLoading)';
+    return 'ProductState(products: $products, isLoading: $isLoading)';
   }
 
   @override
@@ -130,12 +146,15 @@ class _$_ProductState implements _ProductState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ProductState &&
+            const DeepCollectionEquality().equals(other.products, products) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(isLoading));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(products),
+      const DeepCollectionEquality().hash(isLoading));
 
   @JsonKey(ignore: true)
   @override
@@ -149,11 +168,14 @@ class _$_ProductState implements _ProductState {
 }
 
 abstract class _ProductState implements ProductState {
-  const factory _ProductState({bool isLoading}) = _$_ProductState;
+  const factory _ProductState({List<dynamic> products, bool isLoading}) =
+      _$_ProductState;
 
   factory _ProductState.fromJson(Map<String, dynamic> json) =
       _$_ProductState.fromJson;
 
+  @override
+  List<dynamic> get products;
   @override
   bool get isLoading;
   @override
